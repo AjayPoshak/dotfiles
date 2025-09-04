@@ -10,7 +10,7 @@ local plugins = {
     dependencies = {
       -- format & linting
       {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         config = function()
           require "custom.configs.null-ls"
         end,
@@ -73,7 +73,7 @@ local plugins = {
     lazy = false,
     cmd = "Copilot",
     init = function()
-      vim.g.copilot_node_command = os.getenv "HOME" .. "/.nvm/versions/node/v18.20.2/bin/node"
+      vim.g.copilot_node_command = os.getenv "HOME" .. "/.nvm/versions/node/v22.16.0/bin/node"
       vim.g.copilot_no_maps = true
     end,
   },
@@ -87,6 +87,22 @@ local plugins = {
     "aaronik/treewalker.nvim",
     opts = {
       highlight = true, -- default is false
+    },
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
   },
 

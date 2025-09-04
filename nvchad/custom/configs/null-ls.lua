@@ -1,4 +1,4 @@
-local null_ls = require "null-ls"
+local null_ls = require "none-ls" -- null-ls is deprecated, so using none-ls
 
 local b = null_ls.builtins
 
@@ -76,6 +76,5 @@ local sources = {
 --   end,
 -- }
 null_ls.setup {
-  debug = true,
   sources = sources,
 }
