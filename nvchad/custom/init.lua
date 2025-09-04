@@ -34,3 +34,23 @@ vim.api.nvim_set_keymap("n", "<C-j>", ":Treewalker Down<CR>", { noremap = true }
 vim.api.nvim_set_keymap("n", "<C-k>", ":Treewalker Up<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-h>", ":Treewalker Left<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-l>", ":Treewalker Right<CR>", { noremap = true })
+
+-- Force title setting after ALL initialization
+vim.api.nvim_create_autocmd("UIEnter", {
+  once = true,
+  callback = function()
+    -- Wait a bit to ensure everything is loaded
+    vim.defer_fn(function()
+      vim.opt.title = true
+      vim.opt.titlestring = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+
+      -- Keep enforcing it
+      vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged", "WinEnter", "BufWinEnter" }, {
+        callback = function()
+          local dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+          vim.opt.titlestring = dir
+        end,
+      })
+    end, 100)
+  end,
+})
